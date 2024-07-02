@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:html' as html;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,9 +34,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Map<String, dynamic>? _jsonContent;
-  Color _colorPrimary = Color(0xFF06DDB3);
+  Color _colorPrimary = const Color(0xFF06DDB3);
+  bool _isLoading = false;
+  String? _errorMessage;
 
   Future<void> _loadJson() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
@@ -47,58 +56,149 @@ class _MyHomePageState extends State<MyHomePage> {
           String content = utf8.decode(fileBytes);
           setState(() {
             _jsonContent = json.decode(content);
+            _jsonContent = _modifyJson(_jsonContent!);
+            _isLoading = false;
           });
         } else {
           setState(() {
-            _jsonContent = {'Error': 'File bytes are null'};
+            _errorMessage = 'File bytes are null';
+            _isLoading = false;
           });
         }
       } else {
         setState(() {
-          _jsonContent = {'Error': 'No file selected'};
+          _errorMessage = 'No file selected';
+          _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
-        _jsonContent = {'Error': 'An error occurred: $e'};
+        _errorMessage = 'An error occurred: $e';
+        _isLoading = false;
       });
       debugPrint('Error loading file: $e');
     }
   }
 
+  Map<String, dynamic> _modifyJson(Map<String, dynamic> json) {
+    Map<String, dynamic> modify(Map<String, dynamic> json) {
+      final newJson = <String, dynamic>{};
+      json.forEach((key, value) {
+        newJson[key] = value;
+        if (value is String &&
+            (value == 'tr' ||
+                value == 'gr' ||
+                value == 'sh' ||
+                value == 'fl')) {
+          newJson['nm'] = 'surface53362';
+        } else if (value is Map<String, dynamic>) {
+          newJson[key] = modify(value);
+        } else if (value is List) {
+          newJson[key] = value.map((item) {
+            if (item is Map<String, dynamic>) {
+              return modify(item);
+            }
+            return item;
+          }).toList();
+        }
+      });
+      return newJson;
+    }
+
+    return modify(json);
+  }
+
+  void _downloadJson() {
+    final jsonContent = json.encode(_jsonContent);
+    final bytes = utf8.encode(jsonContent);
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.AnchorElement(href: url)
+      ..setAttribute("download", "modified.json")
+      ..click();
+    html.Url.revokeObjectUrl(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Image.asset(
-            'lottieflix-logo.png',
-            height: 40,
-          ),
+        title: Image.asset(
+          'lottieflix-logo.png',
+          height: 40,
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 20),
-              _jsonContent != null
-                  ? Expanded(
-                      child: SingleChildScrollView(
-                        child: Text(
-                          _jsonContent.toString(),
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ),
-                    )
-                  : const Text('No JSON loaded'),
-            ],
-          ),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 20),
+            if (_isLoading)
+              Column(
+                children: [
+                  const Text(
+                    'Mettiti comodo mentre sistemo il tuo file Lottie...',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 20),
+                  LottieBuilder.asset(
+                    'hamster.json',
+                    width: 250,
+                  ),
+                ],
+              )
+            else if (_errorMessage != null)
+              Text(
+                _errorMessage!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                ),
+              ),
+            if (!_isLoading && _errorMessage == null && _jsonContent == null)
+              Column(
+                children: [
+                  const Text(
+                    'Nessun JSON file caricato',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 20),
+                  LottieBuilder.asset(
+                    'astronaut.json',
+                    width: 250,
+                  ),
+                ],
+              ),
+            if (_jsonContent != null && _errorMessage == null)
+              ElevatedButton(
+                onPressed: _downloadJson,
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(_colorPrimary),
+                  padding: WidgetStateProperty.all(
+                    const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 20,
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Download Lottie Fixato',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _loadJson,
-          child: const Icon(Icons.add),
-          backgroundColor: _colorPrimary,
-        ));
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _loadJson,
+        backgroundColor: _colorPrimary,
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
