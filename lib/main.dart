@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 child: const Text(
-                  'Download Lottie Fixato',
+                  'Download Lottie Fixato 🚀',
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
