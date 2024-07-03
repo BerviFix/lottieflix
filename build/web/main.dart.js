@@ -67757,9 +67757,9 @@ s.href=r
 s.setAttribute("download","modified.json")
 s.click();(self.URL||self.webkitURL).revokeObjectURL(r)},
 U(a){var s,r=this,q=null,p=A.arW(q,q,new A.nr("lottieflix-logo.png",q,q)),o=t.af,n=A.a([B.i_],o)
-if(r.f)n.push(A.a9K(A.a([B.Mx,B.i_,A.afa("hamster.json",250)],o),B.eb))
+if(r.f)n.push(A.a9K(A.a([B.Mx,B.i_,A.afa("assets/hamster.json",250)],o),B.eb))
 else{s=r.r
-if(s!=null)n.push(new A.ku(s,q,A.mI(q,q,B.DQ,q,q,q,q,q,q,q,q,20,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),q,q))}if(!r.f&&r.r==null&&r.d==null)n.push(A.a9K(A.a([B.My,B.i_,A.afa("astronaut.json",250)],o),B.eb))
+if(s!=null)n.push(new A.ku(s,q,A.mI(q,q,B.DQ,q,q,q,q,q,q,q,q,20,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),q,q))}if(!r.f&&r.r==null&&r.d==null)n.push(A.a9K(A.a([B.My,B.i_,A.afa("assets/astronaut.json",250)],o),B.eb))
 if(r.d!=null&&r.r==null)n.push(new A.Br(r.gRu(),q,q,q,A.Q7(q,q,q,new A.c3(B.j4,t.rc),q,q,q,q,q,q,q,q,q,q,q,new A.c3(B.zb,t.WY),q,q,q,q,q,q,q,q),q,q,!1,q,B.Mw,q))
 return new A.vo(new A.qP(new A.tr(p,40,q),B.i,new A.Lg(q,q,1/0,56),q),A.Qo(A.a9K(n,B.p6),q,q),A.aen(B.j4,B.zH,!1,r.gUT()),B.i,q)}}
 A.a5v.prototype={

@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 20),
                   LottieBuilder.asset(
-                    'hamster.json',
+                    'assets/hamster.json',
                     width: 250,
                   ),
                 ],
@@ -166,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(height: 20),
                   LottieBuilder.asset(
-                    'astronaut.json',
+                    'assets/astronaut.json',
                     width: 250,
                   ),
                 ],
