@@ -67717,7 +67717,7 @@ Zu(a){return a>=this.gj_()&&a<this.goi()},
 i(a){var s=this
 return"Keyframe{startValue="+A.h(s.b)+", endValue="+A.h(s.c)+", startFrame="+A.h(s.r)+", endFrame="+A.h(s.w)+", interpolator="+A.h(s.d)+"}"}}
 A.Do.prototype={
-U(a){return new A.u2(B.E6,"Flutter JSON Loader",A.agy(null,!0),null)}}
+U(a){return new A.u2(B.E6,"LottieFlix",A.agy(null,!0),null)}}
 A.ug.prototype={
 aA(){return new A.xg(B.r)}}
 A.xg.prototype={
