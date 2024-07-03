@@ -152,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
             else if (_errorMessage != null)
               Text(
                 _errorMessage!,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.red,
                   fontSize: 20,
                 ),
@@ -178,16 +178,24 @@ class _MyHomePageState extends State<MyHomePage> {
                   backgroundColor: WidgetStateProperty.all(_colorPrimary),
                   padding: WidgetStateProperty.all(
                     const EdgeInsets.symmetric(
-                      vertical: 10,
+                      vertical: 20,
                       horizontal: 20,
                     ),
                   ),
                 ),
-                child: const Text(
-                  'Download Lottie Fixato 🚀',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
+                child: RichText(
+                  text: const TextSpan(
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                    children: [
+                      TextSpan(text: 'Download Lottie Fixato '),
+                      TextSpan(
+                        text: '🚀',
+                        style: TextStyle(fontFamily: 'Noto Color Emoji'),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -198,6 +206,29 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _loadJson,
         backgroundColor: _colorPrimary,
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: RichText(
+            textAlign: TextAlign.center,
+            text: const TextSpan(
+              children: [
+                TextSpan(text: 'Made with '),
+                TextSpan(
+                  text: '♥️',
+                  style: TextStyle(fontFamily: 'Noto Color Emoji'),
+                ),
+                TextSpan(text: ' by BerviFix from Italy '),
+                TextSpan(
+                  text: '🍕',
+                  style: TextStyle(fontFamily: 'Noto Color Emoji'),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
