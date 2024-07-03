@@ -67756,7 +67756,7 @@ s=document.createElement("a")
 s.href=r
 s.setAttribute("download","modified.json")
 s.click();(self.URL||self.webkitURL).revokeObjectURL(r)},
-U(a){var s,r=this,q=null,p=A.arW(q,q,new A.nr("lottieflix-logo.png",q,q)),o=t.af,n=A.a([B.i_],o)
+U(a){var s,r=this,q=null,p=A.arW(q,q,new A.nr("assets/lottieflix-logo.png",q,q)),o=t.af,n=A.a([B.i_],o)
 if(r.f)n.push(A.a9K(A.a([B.Mx,B.i_,A.afa("assets/hamster.json",250)],o),B.eb))
 else{s=r.r
 if(s!=null)n.push(new A.ku(s,q,A.mI(q,q,B.DQ,q,q,q,q,q,q,q,q,20,q,q,q,q,q,!0,q,q,q,q,q,q,q,q),q,q))}if(!r.f&&r.r==null&&r.d==null)n.push(A.a9K(A.a([B.My,B.i_,A.afa("assets/astronaut.json",250)],o),B.eb))

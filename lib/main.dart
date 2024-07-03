@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Image.asset(
-          'lottieflix-logo.png',
+          'assets/lottieflix-logo.png',
           height: 40,
         ),
       ),
